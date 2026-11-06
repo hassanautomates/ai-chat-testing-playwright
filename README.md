@@ -1,12 +1,12 @@
-# sqa-homework-hassan-kazmi
-
+# ai-chat-testing-playwright
 Pre-login QA suite for the **Permission Agent** at [ask.permission.ai](https://ask.permission.ai) —
 a streaming, non-deterministic AI chat. Playwright (TypeScript), 8 tests, HTML report.
 
+> [!NOTE]
+> Originally built as a take-home task; kept public as an example of testing a non-deterministic AI agent.
+
 ## Setup
-
 Requires Node ≥ 18. From a clean clone:
-
 ```bash
 npm ci
 npx playwright install chromium     # one browser is all the suite needs
@@ -14,12 +14,10 @@ npm test                            # runs the 8 tests against the live site (he
 npm run test:headed                 # optional: watch the browser drive the site
 npm run report                      # opens the generated HTML report
 ```
-
 The suite hits the live site (no server to boot). A full run is ~1 minute (serial by design).
 A committed report is at `artifacts/report/index.html`.
 
 ## Test strategy (TL;DR)
-
 - **Covered (8):** pills render on load · click "What is Permission" → valid answer (Part 2) ·
   free-text ASK → relevant answer · Shift+Enter = newline · empty/whitespace can't send · reply
   streams then settles · Log in / Sign Up entry points · mobile viewport stays usable.
@@ -30,7 +28,6 @@ A committed report is at `artifacts/report/index.html`.
   keeps automation pre-login), multi-browser matrix, perf/a11y — out of scope for 8 focused tests.
 
 ## Key decisions
-
 - **Playwright + built-in HTML report** — best streaming auto-waits, native mobile emulation, one-
   command run, self-contained report. No page-object layer for 8 tests.
 - **Assert invariants, not wording** — the only durable contract for a non-deterministic agent.
@@ -45,28 +42,12 @@ A committed report is at `artifacts/report/index.html`.
   runs).
 
 ## AI disclosure
-
 See [`artifacts/ai-workflow.md`](artifacts/ai-workflow.md).
 
 ## Next steps (with 1–2 more days)
-
 - Complete the **post-signup UX pass** and wire an authenticated smoke path (kept out of automation
   here on purpose).
 - Add an **LLM-judge eval** (e.g. DeepEval) over a golden set of topics to grade relevance/faithful-
   ness — regression detection the keyword checks can't do.
 - Put it in **GitHub Actions** (nightly + on PR), gate release on the 4 required behaviours, publish
   the HTML report as an artifact.
-
-## Submission checklist
-
-- [x] Repo named `sqa-homework-hassan-kazmi` and default branch is `main`
-- [x] README includes exact Setup + run commands (verified from a clean clone)
-- [x] README word count ≤ 500 (excluding commands/checkboxes)
-- [x] Max 8 tests; all 4 required behaviours covered
-- [x] `artifacts/assertions.md` included (≤ 300 words)
-- [x] `artifacts/ux-review.md` included (≤ 400 words, desktop + mobile, post-signup)
-- [x] `artifacts/data-checks.md` included (≤ 300 words + SQL)
-- [x] `artifacts/ai-workflow.md` included (≤ 300 words, all 4 questions answered)
-- [x] `artifacts/report/` included
-- [x] `artifacts/demo.mp4` included (60–90 sec, narrated)
-- [x] Commit history shows how the work evolved
